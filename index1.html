@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            background-color: blue;
+        }
+
+        .container {
+            text-align: center;
+            margin-top: 10%;
+            min-height: 30vh;
+            display: flex;
+            margin-left: 20%;
+            align-content: center;
+        }
+
+        h1 {
+            color: white;
+            margin-left: 25%;
+            margin-top: 40px;
+            margin-bottom: -80px;
+        }
+
+        .search_bar {
+            width: 50%;
+            max-width: 500px;
+            background: #fff;
+            height: 2%;
+            border-radius: 60px;
+            align-items: center;
+            padding-bottom: 0px;
+        }
+
+        .search_bar input {
+            background: transparent;
+            border: 0px;
+            outline: 0px;
+            flex: 1;
+            padding: 24px 20px;
+            font-size: 20px;
+            margin-right: 110px;
+        }
+
+        .search_bar img {
+            width: 20px;
+        }
+
+        .search_bar button {
+            border: 0;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Game Of Thrones</h1>
+    <div class="container">
+        <form  class="search_bar">
+            <input type="text" name="q" placeholder="Search Here">
+            <button type="submit" value="search"><img src="search.png"></button>
+        </form>
+    </div>
+    
+</body>
+
+</html>
