@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width-device-width,initial-scale=1.0">
+    <title>TO_DoList</title>
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+    <style>
+        h2{
+            color: darkblue;
+            
+        }
+        .green {
+            color: green;
+            cursor: pointer;
+        }
+
+        .red {
+            color: red;
+            cursor: pointer;
+        }
+
+        .list-group {
+            font-size: 20px;
+        }
+    </style>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col max-auto col-md-8 mt-3 text-center">
+                <div class="alert align-items-center" id="message"></div>
+                <form id="itemForm">
+                    <h2>TO_DoList</h2>
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" id="itemInput" value="" placeholder="Enter your list">
+                        <button class="btn btn-outline-primary">+</button>
+                    </div>
+                </form>
+                <ul class="nav nav-tabs">
+                    <li class="nav-item">
+                        <a class="nav-line-active" href="#"> ALL Task</a>
+                    </li>
+                </ul>
+                <!-- item-list -->
+                <ul class="list-group list-group-flush" id="iemsList">
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <span>Task 1</span>
+                        <span>
+                            <a class="green">Edit</a>
+                            &nbsp;
+                            <a class="red">Remove</a>
+                        </span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+        //select elememt in DOM
+        const form = document.querySelector("itemForm");
+        const inputItem = document.querySelector("#itemInput");
+        const itemsList = document.querySelector("#itemsList");
+        const navTab= document.querySelectorAll(".nav-item");
+    
+    // craete an empty items List
+    let todoItems=[];
+    //event function add on edit and remove
+    const handleItem=function(itemData){
+        const items=document.querySelectorAll(".list-group-item");
+        items.forEach((item)=>{
+            if(item.querySelector(".title").getAttribute('data-time')==itemData.addedAt){
+                 //edit
+                 item.querySelector("[data-edit]").addEventListener('click',function(e){
+                 e.preventDefault();
+                 
+                 });
+            }
+        });
+           
+    };
+    //get item in List on page
+    const getList=function(todoItems){
+        itemsList.innerHTML="";
+        if(todoItems.length>0){
+            todoItems.forEach((item) => {
+                itemsList.insertAdjacentHTML("beforeend", `<li class="list-group-item d-flex justify-content-between align-items-center">
+                        <span class="title" data-time="${item.addedAt}">${item.name}</span>
+                        <span>
+                            <a  href="#"  class="green" data-edit>Edit</a>
+                            &nbsp;
+                            <a href="#"    class="red" data-remove>Remove</a>
+                        </span>
+                    </li>` );
+            handleItem(item)
+            });
+
+        }
+
+    };
+    //get local storage from the input
+    const getLocalStorage=function(){
+        const todoStorage=localStorage.getItem("todoItems");
+        if(todoStorage===undefined || todoStorage=== null){
+            todoItems=[];
+        }else{
+        todoItems=JSON.parse(todoStorage);
+    }
+    console.log('items',todoItems);
+    getList(todoItems);
+};
+    // set in local storage
+    const setLocalStorage=function(todoItems){
+        localStorage.setItem("todoItems",JSON.stringify(todoItems));
+    };
+    document.addEventListener("DOMContentLoaded",()=>{
+        form.addEventListener("submit", (e) => {
+            e.preventDefault();
+            const itemName=inputItem.value.trip();
+        if(itemName.length === 0){
+            aleart("enter your list");
+        }else{
+            const itemobj={
+                name: itemName,addedAt:new date().getTime(),
+            };
+            todoItems.push(itemobj);
+            setLocalStorage(todoItems);
+        }
+        });
+        //load items
+        getLocalStorage();
+    });
+    
+    
+    
+    
+    
+    
+    </script>
+ </body>
+</html>
